@@ -46,4 +46,18 @@ RSpec.describe ArticlesController do
       )
     end
   end
+
+  describe "#show" do
+    it 'returns a proper JSON' do
+      article1 = create :article
+      get "/articles/#{article1.id}"
+      expect(json_data[:id]).to eq(article1.id.to_s)
+      expect(json_data[:type]).to eq('article')
+      expect(json_data[:attributes]).to eq(
+        title: article1.title,
+        content: article1.content,
+        slug: article1.slug
+      )
+    end
+  end
 end
